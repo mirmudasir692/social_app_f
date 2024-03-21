@@ -1,6 +1,7 @@
 import { useState } from "react"
-import axios from "axios"
 import { baseUrl } from "../../conf/conf"
+import { login_user_api } from "../../api/user/userapi"
+import {Link, useNavigate} from "react-router-dom"
 
 const Login =() =>{
     const [username, setUsername] = useState("")
@@ -8,47 +9,39 @@ const Login =() =>{
     const [loading, setLoading] = useState(false)
     const [errorquery, setErrorquery] = useState("")
     const [error, setError] = useState(false)
-    const loginurl = `${baseUrl}/accounts/login/`
+    const navigator = useNavigate()
 
+    const changeLoadingState = (value) =>{
+      setLoading(value)
+    }
+    const changeErrorQuuery =(value)=>{
+      setErrorquery(value)
+    }
+    const changeErrorState =(value)=>{
+      setError(value)
+    }
 
     const clear_inputs =()=>{
         setUsername("")
         setPassword("")
     }
 
-    const login_user = async(e) =>{
+    const handle_login = async(e) =>{
         e.preventDefault()
-        setLoading(true)
-        try{
-            const data ={
-                "username":username,
-                "password":password
-            }
-            const response = await axios.post(loginurl, data)
-            console.log("response received", response.data)
-            if(typeof(response.data) === "string"){
-                setError(true)
-                setErrorquery(response.data)
-            }
-            else if(typeof(response.data) === "object"){
-                console.log(response.data)
-            }
-            setLoading(false)
-            clear_inputs()
-        }
-        catch(error){
-            setLoading(false)
-            setError(true)
-            setErrorquery(error && error.response && error.response.data)
-            console.log("error occured", error.response.data)
-            clear_inputs()
-        }
+        const data ={
+          "username":username,
+          "password":password
+      }
+      const response = await login_user_api({data, changeErrorQuuery, changeLoadingState, changeErrorState, clear_inputs})
+      if(response){
+        navigator("/")
+      }
     }
 
     return (
         <>
         <div class="w-full ml-auto mr-auto max-w-lg min-h-dvh mt-20">
-  <form onSubmit={(e)=>login_user(e)} class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+  <form onSubmit={(e)=>handle_login(e)} class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
     <h3 className="text-blue-600 font-bold text-3xl mb-3 opacity-70">Login</h3>
     {
         error && <p className="text-red-400 font-semibold ml-auto flex justify-center text-lg">{errorquery}</p>
@@ -74,9 +67,9 @@ const Login =() =>{
             "Sign In"
         }
       </button>
-      <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+      <Link class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
         Forgot Password?
-      </a>
+      </Link>
     </div>
   </form>
   <p class="text-center text-gray-500 text-xs">
