@@ -1,8 +1,30 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { baseUrl } from "../../conf/conf";
+import { useSelector } from "react-redux";
+import { user_id } from "../../features/auth/authSlice";
+import { FollowUser } from "../../api/user/follow";
 
-const MomentUser = ({ user }) => {
-  console.log("user", user);
+const MomentUser = ({ user, follow_status }) => {
+  const userId = parseInt(useSelector(user_id));
+  const [localIsFollowed, setLocalIsFollowed] = useState(false);
+
+  useEffect(() => {
+    setLocalIsFollowed(follow_status);
+  }, [follow_status]);
+
+  const FollowUpUser = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await FollowUser(user && user.id);
+      if (response === 200) {
+        setLocalIsFollowed((preValue) => !preValue);
+      }
+    } catch (error) {}
+  };
+  const followLabel = useMemo(() => {
+    return localIsFollowed ? "following" : "follow";
+  }, [localIsFollowed]);
+
   return (
     <div class="px-8 max-w-sm mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6 max-lg:max-h-28 max-lg:flex">
       <img
@@ -16,9 +38,15 @@ const MomentUser = ({ user }) => {
             {user && user.username}
           </p>
         </div>
-        <button class="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
-          Message
-        </button>
+        {user && userId !== user.id && (
+          <button
+            type="button"
+            onClick={FollowUpUser}
+            class="px-4 py-1 text-sm text-blue-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-blue-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+          >
+            {followLabel}
+          </button>
+        )}
       </div>
     </div>
   );

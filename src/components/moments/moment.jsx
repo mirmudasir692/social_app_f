@@ -1,15 +1,17 @@
 import { baseUrl } from "../../conf/conf";
 import VideoJS from "./videojs";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import MomentUser from "../user/momentuser";
 import { AddToBasket, Leap } from "../../api/momentapi";
 import FruitContainer from "./fruitcontainer";
 
-const Moment = ({ moment }) => {
+const Moment = React.memo(({ moment }) => {
   const playerRef = React.useRef(null);
   const [is_leafed, setisLeafed] = useState(false);
   const [showFruit, setShowFruit] = useState(false);
   const [isBasked, setIsBasked] = useState(false);
+
+  console.log("jjjjjjjj liya", moment && moment);
 
   const [currentTime, setCurrentTime] = useState(0); // State to hold the current playback position
 
@@ -31,24 +33,26 @@ const Moment = ({ moment }) => {
 
   const AddBasket = async () => {
     const response = await AddToBasket(moment.id);
-    if(response === 200){
-      setIsBasked((preValue)=>!preValue)
+    if (response === 200) {
+      setIsBasked((preValue) => !preValue);
     }
   };
 
-  const videoJsOptions = {
-    autoplay: true,
-    controls: false,
-    responsive: true,
-    fluid: true,
-    loop: true,
-    sources: [
-      {
-        src: `${baseUrl}/${moment && moment.video}`,
-        type: "video/mp4",
-      },
-    ],
-  };
+  const videoJsOptions = useMemo(() => {
+    return {
+      autoplay: true,
+      controls: false,
+      responsive: true,
+      fluid: true,
+      loop: true,
+      sources: [
+        {
+          src: `${baseUrl}/${moment && moment.video}`,
+          type: "video/mp4",
+        },
+      ],
+    };
+  }, [moment]);
 
   const handlePlayerReady = (player) => {
     playerRef.current = player;
@@ -66,12 +70,19 @@ const Moment = ({ moment }) => {
     setShowFruit(false);
   }, [moment]);
 
+  const LeafStatus = useMemo(() => {
+    return moment && is_leafed ? "text-green-700" : "text-blue-500";
+  }, [moment, is_leafed]);
+
   return (
     <div className="flex flex-row-reverse">
       {showFruit && <FruitContainer moment_id={moment && moment.id} />}
       <div className="max-w-96 ml-auto mr-auto">
         <div className="mb-1">
-          <MomentUser user={moment && moment.publisher} />
+          <MomentUser
+            user={moment && moment.publisher}
+            follow_status={moment && moment.is_followed}
+          />
         </div>
         <div className="">
           <VideoJS
@@ -81,18 +92,8 @@ const Moment = ({ moment }) => {
           />
         </div>
         <div className="flex justify-between px-3 rounded-b-md">
-          <button
-            type="button"
-            onClick={(event) => {
-              event.preventDefault(); // Prevent default behavior
-              EnableLeaping();
-            }}
-          >
-            <span
-              className={`text-5xl pr-6 py-2 ${
-                moment && (is_leafed ? "text-green-700" : "text-blue-500")
-              }`}
-            >
+          <button type="button" onClick={EnableLeaping}>
+            <span className={`text-5xl pr-6 py-2 ${LeafStatus}`}>
               <i class="fa-solid fa-leaf"></i>
             </span>
           </button>
@@ -120,5 +121,5 @@ const Moment = ({ moment }) => {
       </div>
     </div>
   );
-};
+});
 export default Moment;

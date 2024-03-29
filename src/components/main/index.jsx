@@ -1,8 +1,6 @@
-const Home = ()=>{
-    return (
-        <><h1>
-            this is home page
-            </h1></>
-    )
-}
-export default Home
+import Lander from "../story/storylander";
+
+const Home = () => {
+  return (<Lander />);
+};
+export default Home;

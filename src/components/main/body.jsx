@@ -1,7 +1,7 @@
-const Body =() =>{
-    return (
-        <h1>this is body </h1>
-    )
-}
+import Lander from "../story/storylander";
 
-export default Body
+const Body = () => {
+  return <Lander />;
+};
+
+export default Body;
