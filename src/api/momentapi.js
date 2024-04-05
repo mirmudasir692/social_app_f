@@ -11,6 +11,26 @@ const GetMoments = async (page) => {
     console.log("error occured while getting moment", error);
   }
 };
+const post_moment = async ({ caption, description, tags, video, archive }) => {
+  const url = `${baseUrl}/moments/watch/`;
+  const formData = new FormData();
+  formData.append("caption", caption);
+  formData.append("description", description);
+  formData.append("tags", tags);
+  formData.append("video", video);
+  try {
+    const response = await AxiosInstance.post(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Important to set proper Content-Type for file uploads
+      },
+    });
+    console.log("response", response);
+    return response;
+  } catch (err) {
+    console.log("err", err);
+    throw err;
+  }
+};
 
 const Leap = async (moment_id) => {
   try {
@@ -78,4 +98,12 @@ const AddToBasket = async (moment_id) => {
   }
 };
 
-export { GetMoments, Leap, GetFruits, PostFruit, DeleteFruit, AddToBasket };
+export {
+  GetMoments,
+  Leap,
+  GetFruits,
+  PostFruit,
+  DeleteFruit,
+  AddToBasket,
+  post_moment,
+};

@@ -5,6 +5,7 @@ const initialState = {
   refresh_token: localStorage.getItem("refresh_token") || "",
   user_id: localStorage.getItem("user_id") || "",
   is_authenticated: localStorage.getItem("is_authenticated") || false,
+  profile_pic: localStorage.getItem("profile_pic") || null,
 };
 
 export const authSlice = createSlice({
@@ -16,6 +17,8 @@ export const authSlice = createSlice({
       localStorage.setItem("refresh_token", action.payload.refresh_token);
       localStorage.setItem("user_id", action.payload.user_id);
       localStorage.setItem("is_authenticated", action.payload.is_authenticated);
+      localStorage.setItem("profile_pic", action.payload.profile_pic);
+      state.profile_pic = action.payload.profile_pic;
       state.access_token = action.payload.access_token;
       state.refresh_token = action.payload.refresh_token;
       state.user_id = action.payload.user_id;
@@ -26,6 +29,8 @@ export const authSlice = createSlice({
       localStorage.removeItem("refresh_token");
       localStorage.removeItem("user_id");
       localStorage.removeItem("is_authenticated");
+      localStorage.removeItem("profile_pic");
+      state.profile_pic = null;
       state.access_token = "";
       state.refresh_token = "";
       state.user_id = "";
@@ -45,5 +50,6 @@ export const is_user_authenticated = (state) => state.auth.is_authenticated;
 export const refresh_token = (state) => state.auth.refresh_token;
 export const access_token = (state) => state.auth.access_token;
 export const user_id = (state) => state.auth.user_id;
+export const profile_pic = (state) => state.auth.profile_pic;
 
 export default authSlice.reducer;

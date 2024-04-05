@@ -13,6 +13,11 @@ import MyAccount from "./components/user/myaccount";
 import Moments from "./components/moments/moments";
 import ViewStory from "./components/story/viewstory";
 import AddStory from "./components/story/addstory";
+import Container from "./components/blogs/container";
+import MediaList from "./components/media/medialist";
+import Structure from "./components/media/structure";
+import Menu from "./components/media/Menu";
+import AddMoment from "./components/media/AddMoment";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +28,10 @@ const router = createBrowserRouter(
       <Route path="moments" element={<Moments />} />
       <Route path="stories/:lodger_id" element={<ViewStory />} />
       <Route path="addstory" element={<AddStory />} />
+      <Route path="blogs" element={<Container />} />
+      <Route path="media" element={<Structure />}>
+        <Route path="add_moment" element={<AddMoment />} />
+      </Route>
     </Route>
   )
 );

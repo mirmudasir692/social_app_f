@@ -1,52 +1,70 @@
-import React from 'react';
-import {baseUrl} from "../../conf/conf"
-import { Link } from 'react-router-dom';
-import { store } from '../../app/store';
-import {useSelector} from "react-redux"
-import { is_user_authenticated } from '../../features/auth/authSlice';
+import React from "react";
+import { baseUrl } from "../../conf/conf";
+import { Link } from "react-router-dom";
+import { store } from "../../app/store";
+import { useSelector } from "react-redux";
+import momentIcon from "../../assets/moment_icon.svg";
 
-
+import {
+  is_user_authenticated,
+  profile_pic,
+} from "../../features/auth/authSlice";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 
 const Header = () => {
-    const loginUrl = `${baseUrl}/accounts/login/`
-    const is_authenticated = useSelector(is_user_authenticated)
-    return (
+  const loginUrl = `${baseUrl}/accounts/login/`;
+  const my_profile = useSelector(profile_pic);
+  console.log("profile", my_profile);
+  const user_profile = `${baseUrl}/${my_profile}`;
+  const is_authenticated = useSelector(is_user_authenticated);
+  console.log(profile_pic);
+  return (
     <>
-    <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
-  <Link to="/">
-  <div class="flex items-center flex-shrink-0 text-white mr-6">
-    Home
-  </div>
-  </Link>
-  <div class="block lg:hidden">
-    <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
-      <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-    </button>
-  </div>
-  <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-    <div class="text-sm lg:flex-grow">
-      <Link to="/moments" href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-        Moments
-      </Link>
-      <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-        Examples
-      </a>
-      <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
-        Blog
-      </a>
-    </div>
-    <div>
-      {
-        is_authenticated ? 
-        <Link to="/myaccount" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Profile</Link>
-        : <Link to="/login" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">login</Link>
-      }
-    </div>
-  </div>
-</nav>
+      <nav class="flex items-center justify-between flex-wrap bg-blue-950 py-2 border-b">
+        <div className="flex align-middle justify-evenly w-4/12 max-sm:w-1/2 mx-auto">
+          <Link to="/">
+            <span className="p-3 text-white hover:text-gray-400 text-xl max-sm:text-sm">
+              <i class="fa-solid fa-house"></i>
+            </span>
+          </Link>
 
+          <Link to="/moments" href="#responsive-header" class="max-sm:text-sm ">
+            <span className="p-3 text-white hover:text-gray-400 text-xl max-sm:text-sm">
+              <i class="fa-brands fa-instalod"></i>
+            </span>
+          </Link>
+          <Link to="/blogs" class="text-white hover:text-gray-400 text-xl">
+            <span className="p-3 hover:text-gray-400 text-xl max-sm:text-sm">
+              <i class="fa-solid fa-blog"></i>
+            </span>
+          </Link>
+          <Link to={`/media`} class="text-white hover:text-gray-400 text-xl">
+            <span className="text-white hover:text-gray-400 text-xl max-sm:text-sm">
+              <i className="fa-solid fa-square-plus"></i>
+            </span>
+          </Link>
+        </div>
+        <div className="z-10 mr-2">
+          {is_authenticated ? (
+            <Link to="/myaccount" class="">
+              <img
+                class="w-10 h-10 rounded-full"
+                src={user_profile && user_profile}
+                alt="Rounded avatar"
+              />
+            </Link>
+          ) : (
+            <Link
+              to="/login"
+              class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+            >
+              login
+            </Link>
+          )}
+        </div>
+      </nav>
     </>
-    );
-}
+  );
+};
 
 export default Header;
