@@ -2,22 +2,22 @@ import React from "react";
 import { baseUrl } from "../../conf/conf";
 import { Link } from "react-router-dom";
 import { store } from "../../app/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import momentIcon from "../../assets/moment_icon.svg";
 
 import {
   is_user_authenticated,
   profile_pic,
 } from "../../features/auth/authSlice";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 
 const Header = () => {
   const loginUrl = `${baseUrl}/accounts/login/`;
   const my_profile = useSelector(profile_pic);
   console.log("profile", my_profile);
-  const user_profile = `${baseUrl}/${my_profile}`;
+  const user_profile = `${baseUrl}${my_profile}`;
   const is_authenticated = useSelector(is_user_authenticated);
   console.log(profile_pic);
+
   return (
     <>
       <nav class="flex items-center justify-between flex-wrap bg-blue-950 py-2 border-b">
@@ -44,25 +44,33 @@ const Header = () => {
             </span>
           </Link>
         </div>
-        <div className="z-10 mr-2">
-          {is_authenticated ? (
-            <Link to="/myaccount" class="">
-              <img
-                class="w-10 h-10 rounded-full"
-                src={user_profile && user_profile}
-                alt="Rounded avatar"
-              />
-            </Link>
-          ) : (
-            <Link
-              to="/login"
-              class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
-            >
-              login
-            </Link>
-          )}
+        <div className="flex gap-3">
+          <Link to="/chatbox" className="text-white text-4xl">
+            <i class="fa-brands fa-facebook-messenger"></i>
+          </Link>
+          <div className="z-10 mr-2">
+            {is_authenticated ? (
+              <Link to="/myaccount" class="">
+                <img
+                  class="w-10 h-10 rounded-full"
+                  src={user_profile && user_profile}
+                  alt="Rounded avatar"
+                />
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+              >
+                login
+              </Link>
+            )}
+          </div>
         </div>
       </nav>
+      <div>
+
+      </div>
     </>
   );
 };

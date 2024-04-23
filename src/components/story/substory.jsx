@@ -13,7 +13,7 @@ const Sub_Story = ({ story_logder }) => {
           >
             <img
               class="h-24 w-24 rounded-full"
-              src={`${baseUrl}/${story_logder.user.profile_pic}`}
+              src={`${baseUrl}${story_logder.user.profile_pic}`}
               alt="image"
             />
           </a>

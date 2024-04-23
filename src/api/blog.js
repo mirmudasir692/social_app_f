@@ -36,6 +36,20 @@ const post_comment = async (content, blog_id) => {
     throw error;
   }
 };
+const save_blog = async (blog_id) => {
+  const url = `${baseUrl}/feature/blog/`;
+  const data = {
+    blog_id: blog_id,
+  };
+  try {
+    const response = await AxiosInstance.post(url, data);
+    return response.status;
+  } catch (error) {
+    console.log("error", error);
+    throw error;
+  }
+};
+
 const get_comments = async (blog_id, page_num) => {
   const url = `${baseUrl}/blog/comment/?blog_id=${
     blog_id && blog_id
@@ -52,4 +66,4 @@ const get_comments = async (blog_id, page_num) => {
   }
 };
 
-export { get_blogs, like_blog, post_comment, get_comments };
+export { get_blogs, like_blog, post_comment, get_comments, save_blog };

@@ -18,6 +18,8 @@ import MediaList from "./components/media/medialist";
 import Structure from "./components/media/structure";
 import Menu from "./components/media/Menu";
 import AddMoment from "./components/media/AddMoment";
+import ChatList from "./components/chatsystem/chatlist";
+import Messenger from "./components/chatsystem/messenger";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +34,7 @@ const router = createBrowserRouter(
       <Route path="media" element={<Structure />}>
         <Route path="add_moment" element={<AddMoment />} />
       </Route>
+      <Route path="chatbox" element={<Messenger />} />
     </Route>
   )
 );

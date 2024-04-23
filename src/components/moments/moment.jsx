@@ -47,7 +47,7 @@ const Moment = React.memo(({ moment }) => {
       loop: true,
       sources: [
         {
-          src: `${baseUrl}/${moment && moment.video}`,
+          src: `${baseUrl}${moment && moment.video}`,
           type: "video/mp4",
         },
       ],

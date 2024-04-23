@@ -42,10 +42,15 @@ export const authSlice = createSlice({
       state.access_token = action.payload.access_token;
       state.refresh_token = action.payload.refresh_token;
     },
+ 
   },
 });
 
-export const { login_user, refresh_tokens, logout_user } = authSlice.actions;
+export const {
+  login_user,
+  refresh_tokens,
+  logout_user,
+} = authSlice.actions;
 export const is_user_authenticated = (state) => state.auth.is_authenticated;
 export const refresh_token = (state) => state.auth.refresh_token;
 export const access_token = (state) => state.auth.access_token;

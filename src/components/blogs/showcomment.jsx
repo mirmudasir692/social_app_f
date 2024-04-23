@@ -14,10 +14,10 @@ const ShowComment = ({ comment }) => {
     options
   );
   return (
-    <div class="mx-auto border px-6 py-4 rounded-lg max-h-52  w-3/4">
+    <div class="mx-auto border px-6 py-4 rounded-lg max-h-48  w-3/4">
       <div class="flex items-center mb-6">
         <img
-          src={`${baseUrl}/${comment && comment.user.profile_pic}`}
+          src={`${baseUrl}${comment && comment.user.profile_pic}`}
           alt="Avatar"
           class="w-12 h-12 rounded-full mr-4"
         />

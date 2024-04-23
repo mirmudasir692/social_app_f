@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { baseUrl } from "../../conf/conf";
 import VerifiedIcon from "@mui/icons-material/Verified";
-import { like_blog } from "../../api/blog";
+import { like_blog, save_blog } from "../../api/blog";
 import Comment from "./comment";
 
 const Blog = ({ blog }) => {
   const [is_liked, setIs_liked] = useState(false);
   const [likes, setLikes] = useState(0);
-  const [showComment, setShowComment] = useState(true);
+  const [is_saved, setIs_saved] = useState(false);
+  const [showComment, setShowComment] = useState(false);
 
   useEffect(() => {
     setIs_liked(blog && blog.is_liked);
     setLikes(blog && blog.likes);
+    setIs_saved(blog && blog.is_saved);
   }, [blog]);
 
   const like_blog_handler = async () => {
@@ -27,6 +29,17 @@ const Blog = ({ blog }) => {
         }
       }
     } catch (error) {}
+  };
+
+  const save_this_blog = async () => {
+    try {
+      const response = await save_blog(blog && blog.id);
+      if (response === 200) {
+        setIs_saved((preValue) => !preValue);
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   return (
@@ -58,7 +71,7 @@ const Blog = ({ blog }) => {
             </div>
             <div class="relative mt-8 flex items-center gap-x-4">
               <img
-                src={`${baseUrl}/${blog && blog.user.profile_pic}`}
+                src={`${baseUrl}${blog && blog.user.profile_pic}`}
                 alt=""
                 class="h-10 w-10 rounded-full bg-gray-50"
               />
@@ -99,9 +112,14 @@ const Blog = ({ blog }) => {
           >
             <i class="fa-solid fa-comment"></i>
           </button>
-          <span className="hover:bg-slate-200 px-6 py-1 rounded-lg max-md:text-xl">
+          <button
+            onClick={save_this_blog}
+            className={`hover:bg-slate-200 px-6 py-1 rounded-lg max-md:text-xl ${
+              blog && (is_saved ? "text-red-500" : "")
+            }`}
+          >
             <i class="fa-solid fa-bookmark"></i>
-          </span>
+          </button>
           <span className="hover:bg-slate-200 px-6 py-1 rounded-lg max-md:text-xl">
             <i class="fa-solid fa-share"></i>
           </span>

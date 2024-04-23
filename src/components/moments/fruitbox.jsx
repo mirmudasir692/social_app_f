@@ -28,7 +28,7 @@ const Box = ({ fruit, RemoveFruit }) => {
   return (
     <div class="flex items-start mb-4">
       <img
-        src={`${baseUrl}/${fruit && fruit.user.profile_pic}`}
+        src={`${baseUrl}${fruit && fruit.user.profile_pic}`}
         alt="Another User Avatar"
         class="w-8 h-8 rounded-full mr-2"
       />
