@@ -12,6 +12,20 @@ const get_blogs = async (page_num) => {
   }
 };
 
+const post_blog = async (title, content) => {
+  const url = `${baseUrl}/blog/`;
+  try {
+    const data = {
+      title: title,
+      content: content,
+    };
+    const response = await AxiosInstance.post(url, data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const like_blog = async (blog_id) => {
   const url = `${baseUrl}/blog/like/?blog_id=${blog_id}`;
   try {
@@ -66,4 +80,11 @@ const get_comments = async (blog_id, page_num) => {
   }
 };
 
-export { get_blogs, like_blog, post_comment, get_comments, save_blog };
+export {
+  get_blogs,
+  post_blog,
+  like_blog,
+  post_comment,
+  get_comments,
+  save_blog,
+};

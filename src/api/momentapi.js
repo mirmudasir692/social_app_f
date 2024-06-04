@@ -11,13 +11,22 @@ const GetMoments = async (page) => {
     console.log("error occured while getting moment", error);
   }
 };
-const post_moment = async ({ caption, description, tags, video, archive }) => {
+const post_moment = async ({
+  caption,
+  description,
+  tags,
+  video,
+  archive,
+  cover_pic,
+}) => {
   const url = `${baseUrl}/moments/watch/`;
   const formData = new FormData();
   formData.append("caption", caption);
   formData.append("description", description);
   formData.append("tags", tags);
   formData.append("video", video);
+  formData.append("cover_pic", cover_pic);
+
   try {
     const response = await AxiosInstance.post(url, formData, {
       headers: {

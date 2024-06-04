@@ -26,5 +26,15 @@ const GetUserChat = async (group_id) => {
     throw error;
   }
 };
+const GetGroups = async () => {
+  try {
+    const url = `${baseUrl}/chat/list_groups`;
+    const response = await AxiosInstance.get(url);
+    return response.status === 200 ? response.data : [];
+  } catch (error) {
+    console.log("error", error);
+    return [];
+  }
+};
 
-export { GetChatList, GetUserChat };
+export { GetChatList, GetUserChat, GetGroups };

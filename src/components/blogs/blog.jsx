@@ -3,12 +3,15 @@ import { baseUrl } from "../../conf/conf";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import { like_blog, save_blog } from "../../api/blog";
 import Comment from "./comment";
+import { Link } from "react-router-dom";
+import ShareBar from "../share/sharebar";
 
 const Blog = ({ blog }) => {
   const [is_liked, setIs_liked] = useState(false);
   const [likes, setLikes] = useState(0);
   const [is_saved, setIs_saved] = useState(false);
   const [showComment, setShowComment] = useState(false);
+  const [showShareBar, setShowBar] = useState(false);
 
   useEffect(() => {
     setIs_liked(blog && blog.is_liked);
@@ -29,6 +32,10 @@ const Blog = ({ blog }) => {
         }
       }
     } catch (error) {}
+  };
+  const toggle_states = async () => {
+    setShowBar((preValue) => !preValue);
+    setShowComment((preValue) => !preValue);
   };
 
   const save_this_blog = async () => {
@@ -77,10 +84,10 @@ const Blog = ({ blog }) => {
               />
               <div class="text-sm leading-6">
                 <p class="font-semibold text-gray-900">
-                  <a href="#">
+                  <Link to={`/view_friend/${blog.user.id}`}>
                     <span class="absolute inset-0"></span>
                     {blog && blog.user.username}
-                  </a>
+                  </Link>
                   <span className="pl-2 text-sm text-blue-700">
                     <VerifiedIcon fontSize="small" />
                   </span>
@@ -107,7 +114,12 @@ const Blog = ({ blog }) => {
             </span>
           </span>
           <button
-            onClick={() => setShowComment((preValue) => !preValue)}
+            onClick={() =>
+              setShowComment((prevValue) => {
+                setShowBar(false);
+                return !prevValue;
+              })
+            }
             className="hover:bg-slate-200 px-6 py-1 rounded-lg max-md:text-xl"
           >
             <i class="fa-solid fa-comment"></i>
@@ -120,12 +132,21 @@ const Blog = ({ blog }) => {
           >
             <i class="fa-solid fa-bookmark"></i>
           </button>
-          <span className="hover:bg-slate-200 px-6 py-1 rounded-lg max-md:text-xl">
+          <button
+            onClick={() =>
+              setShowBar((prevValue) => {
+                setShowComment(false);
+                return !prevValue;
+              })
+            }
+            className="hover:bg-slate-200 px-6 py-1 rounded-lg max-md:text-xl"
+          >
             <i class="fa-solid fa-share"></i>
-          </span>
+          </button>
         </div>
       </div>
       {showComment && <Comment blog_id={blog && blog.id} />}
+      {showShareBar && <ShareBar blog_id={blog && blog.id} blog_={true} />}
     </div>
   );
 };

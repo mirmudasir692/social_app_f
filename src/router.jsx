@@ -20,6 +20,12 @@ import Menu from "./components/media/Menu";
 import AddMoment from "./components/media/AddMoment";
 import ChatList from "./components/chatsystem/chatlist";
 import Messenger from "./components/chatsystem/messenger";
+import AddBlog from "./components/blogs/addblog";
+import Saved from "./components/saved/saved";
+import SavedMomentContainer from "./components/saved/moments";
+import SavedBlogsContainer from "./components/saved/blogs";
+import Register from "./components/user/register";
+import ViewFriend from "./components/user/viewfriend";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,10 +37,14 @@ const router = createBrowserRouter(
       <Route path="stories/:lodger_id" element={<ViewStory />} />
       <Route path="addstory" element={<AddStory />} />
       <Route path="blogs" element={<Container />} />
-      <Route path="media" element={<Structure />}>
-        <Route path="add_moment" element={<AddMoment />} />
-      </Route>
+      <Route path="add_moment" element={<AddMoment />} />
       <Route path="chatbox" element={<Messenger />} />
+      <Route path="add_blog" element={<AddBlog />} />
+      <Route path="saved" element={<Saved />} />
+      <Route path="saved_moments" element={<SavedMomentContainer />} />
+      <Route path="saved_blogs" element={<SavedBlogsContainer />} />
+      <Route path="register" element={<Register/>}/>
+      <Route path="view_friend/:user_id" element={<ViewFriend/>}/>
     </Route>
   )
 );

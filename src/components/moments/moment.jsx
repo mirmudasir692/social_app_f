@@ -88,7 +88,7 @@ const Moment = React.memo(({ moment }) => {
           <VideoJS
             options={videoJsOptions}
             onReady={handlePlayerReady}
-            className="max-w-96"
+            className="max-w-96 h-52"
           />
         </div>
         <div className="flex justify-between px-3 rounded-b-md">

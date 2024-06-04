@@ -11,6 +11,7 @@ const AddMoment = () => {
   const [archive, setArchive] = useState(false);
   const [videoPreviewUrl, setVideoPreviewUrl] = useState(null); // State to store video preview URL
   const [loading, setLoading] = useState(false);
+  const [cover_pic, setCover_pic] = useState(null);
 
   const navigator = useNavigate();
 
@@ -18,6 +19,10 @@ const AddMoment = () => {
     const selectedVideo = e.target.files[0];
     setVideo(e.target.files[0]);
     setVideoPreviewUrl(URL.createObjectURL(selectedVideo));
+  };
+  const handle_cover_pic_change = (e) => {
+    const selectedCoverPic = e.target.files[0];
+    setCover_pic(selectedCoverPic);
   };
 
   const upload_moment = async () => {
@@ -28,6 +33,7 @@ const AddMoment = () => {
         tags: tags,
         video: video,
         archive: archive,
+        cover_pic: cover_pic,
       });
       if (response.status === 200) {
         navigator("/");
@@ -39,7 +45,7 @@ const AddMoment = () => {
   };
 
   return (
-    <div class="py-10 px-2 w-full flex max-md:flex-col">
+    <div class="py-10 px-2 flex max-md:flex-col w-1/2 mx-auto">
       <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden md:max-w-lg w-1/2 max-md:w-full">
         <div class="md:flex">
           <div class="w-full">
@@ -102,6 +108,28 @@ const AddMoment = () => {
                     type="file"
                     onChange={(e) => handle_video_change(e)}
                     accept=".mp4"
+                    class="h-full w-full opacity-0"
+                    name=""
+                  />
+                </div>
+                <div class="relative h-40 rounded-lg border-dashed border-2 border-gray-200 bg-white flex justify-center items-center hover:cursor-pointer">
+                  <div class="absolute">
+                    <div class="flex flex-col items-center ">
+                      <i class="fa fa-cloud-upload fa-3x text-gray-200"></i>
+                      <span class="block text-gray-400 font-normal">
+                        Add cover_pic
+                      </span>
+                      <span class="block text-gray-400 font-normal">or</span>
+
+                      <span class="block text-blue-400 font-normal">
+                        Browse cover_pic
+                      </span>
+                    </div>
+                  </div>{" "}
+                  <input
+                    type="file"
+                    onChange={(e) => handle_cover_pic_change(e)}
+                    accept="image/png, image/jpeg, image/jpg"
                     class="h-full w-full opacity-0"
                     name=""
                   />
