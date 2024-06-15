@@ -51,6 +51,7 @@ const Lander = () => {
           </div>
         ))}
       </ul>
+      
     </section>
   );
 };
