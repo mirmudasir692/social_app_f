@@ -3,7 +3,7 @@ import Lander from "../story/storylander";
 
 const Home = () => {
   return (
-    <div>
+    <div className=" h-96 overflow-y-auto">
       <Lander />
       <Posts/>
       

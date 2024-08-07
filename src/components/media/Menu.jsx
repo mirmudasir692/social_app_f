@@ -13,11 +13,9 @@ const Menu = () => {
                 onClick={() => setDropdownOpen((preValue) => !preValue)}
                 id="dropdownNavbarLink"
                 data-dropdown-toggle="dropdownNavbar"
-                class="flex items-center justify-between w-full text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                class="flex items-center justify-between w-full rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent text-black mx-auto"
               >
-                <span className="relative bottom-3 right-4 text-white text-xl">
-                  <i class="fa-solid fa-circle-plus"></i>
-                </span>
+                <span className="text-lg">Post</span>
               </button>
               {dropdownOpen && (
                 <div

@@ -85,4 +85,22 @@ const get_friend_profile = async (user_id) => {
   }
 };
 
-export { login_user_api, get_user_profile, register_user, get_friend_profile };
+const search_users = async ({ username }) => {
+  const url = `${baseUrl}/accounts/search/?param=${username}`;
+  try {
+    const response = await AxiosInstance.get(url);
+    console.log("response", response.data);
+    return response.data
+  } catch (err) {
+    console.log("err", err);
+    return [];
+  }
+};
+
+export {
+  login_user_api,
+  get_user_profile,
+  register_user,
+  get_friend_profile,
+  search_users,
+};

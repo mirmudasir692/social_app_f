@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer class="rounded-lg shadow bg-slate-300 text-black max-w-full mt-5">
+    <footer class="rounded-lg shadow bg-slate-300 text-black max-w-full">
       <div class="w-full max-w-screen-xl p-4 md:flex md:justify-between">
         <span class="text-sm text-gray-500 sm:text-center dark:text-gray-600">
           © 2023{" "}

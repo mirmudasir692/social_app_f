@@ -24,6 +24,27 @@ const Post = ({ post }) => {
       console.log("error", err);
     }
   };
+  const handle_download = async () => {
+    try {
+      const response = await fetch(post.image, {
+        mode: "cors",
+      });
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.style.display = "none";
+      a.href = url;
+      // Sanitize post.caption to be a valid file name
+      const fileName = post.caption.replace(/[\/\\?%*:|"<>]/g, "_") + ".jpg"; // assuming the file is a jpg
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error("Download error", error);
+    }
+  };
 
   return (
     <div class="flex justify-center items-center w-96 border-2 p-5 rounded-lg max-lg:px-2">
@@ -46,24 +67,10 @@ const Post = ({ post }) => {
             </h2>
           </div>
           <div class="flex space-x-2">
-            <div class="flex space-x-1 items-center">
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-7 w-7 text-gray-600 cursor-pointer"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                  />
-                </svg>
-              </span>
-              <span>22</span>
+            <div class="flex space-x-1 items-center text-2xl pt-1 pr-1">
+              <button onClick={handle_download}>
+                <i class="fa-solid fa-arrow-down"></i>
+              </button>
             </div>
             <button onClick={() => handle_post_like()}>
               <div class="flex space-x-1 items-center">

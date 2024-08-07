@@ -11,9 +11,7 @@ const ChatBox = ({ group_id, receiver }) => {
   const chatEndRef = useRef(null);
   console.log(`socket url`, socketUrl);
 
-  useEffect(() => {
-    
-  }, []);
+  useEffect(() => {}, []);
 
   console.log("receiver", receiver);
   const sender_id = parseInt(useSelector(user_id));

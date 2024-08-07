@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { baseUrl } from "../../conf/conf";
+import { baseUrl, fronturl } from "../../conf/conf";
 import { Link, useNavigate } from "react-router-dom";
 import { store } from "../../app/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,7 @@ import {
   username,
 } from "../../features/auth/authSlice";
 import Menu from "../media/Menu";
+import Search from "../search/search";
 
 const Header = () => {
   const loginUrl = `${baseUrl}/accounts/login/`;
@@ -31,14 +32,28 @@ const Header = () => {
     setShowUserOps(false);
     navigator("/login");
   };
+  console.log(`${fronturl}../../assets/Gold Luxury Initial Logo.png`);
 
   return (
     <>
-      <nav class="flex items-center justify-between flex-wrap bg-blue-950 py-2 border-b">
+      <nav class="flex items-center justify-between flex-wrap py-2 border-b z-50 shadow-lg">
+        <div className="flex">
+          <Link to="/">
+            <img
+              src={`${fronturl}/src/assets/Gold Luxury Initial Logo.png`}
+              alt=""
+              srcset=""
+              className="p-3 text-white hover:text-gray-400 text-xl max-sm:text-sm w-14 h-14 rounded-full z-50"
+            />
+          </Link>
+
+          <Search />
+        </div>
+
         {is_authenticated && (
-          <div className="flex align-middle justify-evenly w-4/12 max-sm:w-1/2 mx-auto">
+          <div className="flex align-middle justify-evenly w-4/12 max-sm:w-1/2 ml-72">
             <Link to="/">
-              <span className="p-3 text-white hover:text-gray-400 text-xl max-sm:text-sm">
+              <span className="p-3 text-gray-600 text-xl max-sm:text-sm hover:bg-slate-200 px-8 rounded-lg">
                 <i class="fa-solid fa-house"></i>
               </span>
             </Link>
@@ -48,23 +63,23 @@ const Header = () => {
               href="#responsive-header"
               class="max-sm:text-sm "
             >
-              <span className="p-3 text-white hover:text-gray-400 text-xl max-sm:text-sm">
+              <span className="p-3 text-gray-600 hover:bg-slate-200 px-8 rounded-lg text-xl max-sm:text-sm">
                 <i class="fa-brands fa-instalod"></i>
               </span>
             </Link>
-            <Link to="/blogs" class="text-white hover:text-gray-400 text-xl">
-              <span className="p-3 hover:text-gray-400 text-xl max-sm:text-sm">
+
+            <Link to="/blogs">
+              <span className="p-3 text-gray-600 text-xl max-sm:text-sm hover:bg-slate-200 px-8 rounded-lg">
                 <i class="fa-solid fa-blog"></i>
               </span>
             </Link>
           </div>
         )}
 
-        {is_authenticated && <Menu />}
 
         <div className="flex gap-3">
           {is_authenticated && (
-            <Link to="/chatbox" className="text-white text-4xl">
+            <Link to="/chatbox" className="text-slate-800 text-4xl">
               <i class="fa-brands fa-facebook-messenger"></i>
             </Link>
           )}

@@ -26,6 +26,7 @@ import SavedMomentContainer from "./components/saved/moments";
 import SavedBlogsContainer from "./components/saved/blogs";
 import Register from "./components/user/register";
 import ViewFriend from "./components/user/viewfriend";
+import SearchPage from "./components/search/searchpage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,8 +44,9 @@ const router = createBrowserRouter(
       <Route path="saved" element={<Saved />} />
       <Route path="saved_moments" element={<SavedMomentContainer />} />
       <Route path="saved_blogs" element={<SavedBlogsContainer />} />
-      <Route path="register" element={<Register/>}/>
-      <Route path="view_friend/:user_id" element={<ViewFriend/>}/>
+      <Route path="register" element={<Register />} />
+      <Route path="view_friend/:user_id" element={<ViewFriend />} />
+      <Route path="search/:username" element={<SearchPage />} />
     </Route>
   )
 );

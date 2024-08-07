@@ -1,3 +1,4 @@
+import PopUp from "../chatsystem/messagepopup";
 import Posts from "../posts/posts";
 import Lander from "../story/storylander";
 
@@ -5,7 +6,8 @@ const Body = () => {
   return (
     <div>
       <Lander />
-      <Posts/>
+      <Posts />
+      <PopUp />
     </div>
   );
 };

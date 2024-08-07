@@ -33,7 +33,7 @@ const Lander = () => {
                 href="#"
               >
                 <img
-                  class="h-24 w-24 rounded-full"
+                  class="h-12 w-12 rounded-full"
                   src="https://i.ibb.co/yhh0Ljy/profile.jpg"
                   alt="image"
                 />
@@ -51,7 +51,6 @@ const Lander = () => {
           </div>
         ))}
       </ul>
-      
     </section>
   );
 };
