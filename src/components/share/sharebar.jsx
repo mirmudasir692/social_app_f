@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { GetGroups } from "../../api/chat/friendschat";
 import UserProfile from "./userprofile";
-import { share_blog } from "../../api/share/blog";
+import { handle_sharing as HandleSharing } from "../../api/share/blog";
 
 const ShareBar = ({ group_id, blog_id, moment_id, blog_, moment_ }) => {
   const [groups, setGroups] = useState([]);
@@ -12,7 +12,15 @@ const ShareBar = ({ group_id, blog_id, moment_id, blog_, moment_ }) => {
     if (blog_) {
       try {
         console.log("blog_id", blog_id);
-        const response = await share_blog({ blog_id, selectedGroups });
+        const response = await HandleSharing({ blog_id, selectedGroups });
+        console.log("response", response);
+      } catch (error) {
+        console.log("error", error);
+      }
+    } else if (moment_) {
+      try {
+        console.log("moment_id", moment_);
+        const response = await share_blog({ moment_, selectedGroups });
         console.log("response", response);
       } catch (error) {
         console.log("error", error);
@@ -47,7 +55,6 @@ const ShareBar = ({ group_id, blog_id, moment_id, blog_, moment_ }) => {
       selectedGroups.push(group_name);
     }
   };
-  
 
   console.log("group_id, blog_id, moment_id", group_id, blog_id, moment_id);
   return (

@@ -15,7 +15,7 @@ const SideBar = () => {
     <div className="">
       <button
         onClick={() => setShowSideBar((prevalue) => !prevalue)}
-        className={`px-4 py-2 text-2xl rounded-full border-2 border-gray-800 ${showSideBar} relative left-56`}
+        className={`px-4 py-2 text-2xl rounded-full border-2 border-gray-800 fixed left-1 top-20`}
       >
         <i class="fa-solid fa-bars"></i>
       </button>
@@ -41,7 +41,7 @@ const SideBar = () => {
                 />
               </span>
             </div>
-            {my_username}
+            <Link to="/myaccount">{my_username}</Link>
           </div>
           <div
             role="button"

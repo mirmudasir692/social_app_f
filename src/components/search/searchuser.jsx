@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { baseUrl } from "../../conf/conf";
 import { FollowUser } from "../../api/user/follow";
+import { useSelector } from "react-redux";
+import { user_id } from "../../features/auth/authSlice";
 
 const User = ({ user }) => {
   console.log("user", user.is_followed);
   const [is_follow, setIs_follow] = useState(false);
+  const current_user_id = useSelector(user_id);
+  console.log("user_id", user_id);
   const handle_follow_user = async () => {
     try {
       const result = await FollowUser(user.id);

@@ -12,7 +12,7 @@ const Layout = () => {
   return (
     <div className="flex flex-col">
       <Header />
-      <div className="flex">
+      <div className="flex mt-20">
         {IsAuthenticated && <SideBar />}
         <Outlet />
       </div>

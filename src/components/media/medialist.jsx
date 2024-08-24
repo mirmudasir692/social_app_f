@@ -13,6 +13,7 @@ const MediaList = () => {
         Add Moment
       </Link>
       <Link className="mx-auto font-bold text-2xl hover:underline">Blog</Link>
+      
     </div>
   );
 };

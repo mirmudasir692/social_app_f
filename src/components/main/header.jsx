@@ -21,7 +21,7 @@ const Header = () => {
   const user_profile = `${baseUrl}${my_profile}`;
   const is_authenticated = useSelector(is_user_authenticated);
   console.log(profile_pic);
-  const [showuserps, setShowUserOps] = useState(false);
+  const [showuserps, setShowUserOps] = useState(true);
   const dispatch = useDispatch();
 
   const my_username = useSelector(username);
@@ -36,7 +36,7 @@ const Header = () => {
 
   return (
     <>
-      <nav class="flex items-center justify-between flex-wrap py-2 border-b z-50 shadow-lg">
+      <nav class="flex items-center justify-between flex-wrap py-2 border-b shadow-lg fixed w-full bg-white z-50">
         <div className="flex">
           <Link to="/">
             <img
@@ -51,7 +51,7 @@ const Header = () => {
         </div>
 
         {is_authenticated && (
-          <div className="flex align-middle justify-evenly w-4/12 max-sm:w-1/2 ml-72">
+          <div className="flex align-middle justify-evenly w-4/12 max-sm:w-1/2 mr-48">
             <Link to="/">
               <span className="p-3 text-gray-600 text-xl max-sm:text-sm hover:bg-slate-200 px-8 rounded-lg">
                 <i class="fa-solid fa-house"></i>
@@ -73,16 +73,15 @@ const Header = () => {
                 <i class="fa-solid fa-blog"></i>
               </span>
             </Link>
+            <Link to="/notes">
+              <span className="p-3 text-gray-600 text-xl max-sm:text-sm hover:bg-slate-200 px-8 rounded-lg">
+                <i class="fa-solid fa-note-sticky"></i>
+              </span>
+            </Link>
           </div>
         )}
 
-
         <div className="flex gap-3">
-          {is_authenticated && (
-            <Link to="/chatbox" className="text-slate-800 text-4xl">
-              <i class="fa-brands fa-facebook-messenger"></i>
-            </Link>
-          )}
           <div className="z-10 mr-2">
             {is_authenticated ? (
               <button
@@ -106,46 +105,14 @@ const Header = () => {
 
             {showuserps && (
               <div
-                class="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 absolute right-1"
+                class="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 absolute right-1 w-48"
                 id="user-dropdown"
               >
-                <div class="px-4 py-3">
-                  <Link
-                    to="/myaccount"
-                    class="block text-sm text-gray-900 dark:text-white"
-                  >
-                    {my_username}
-                  </Link>
-                </div>
                 <ul class="py-2" aria-labelledby="user-menu-button">
-                  <li>
-                    <Link
-                      to="/saved"
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      Saved
-                    </Link>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      Settings
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      Earnings
-                    </a>
-                  </li>
                   <li>
                     <button
                       onClick={() => handle_sign_out()}
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white w-full"
                     >
                       Sign out
                     </button>

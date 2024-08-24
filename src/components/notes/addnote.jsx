@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import { get_my_note, post_note, update_note } from "../../api/notes";
+import { useNavigate } from "react-router-dom";
 
 const AddNote = () => {
   const [note, setNote] = useState("");
-  const [audio, setAudio] = useState(null);
   const [update, setUpdate] = useState(false);
-
-  const handle_audio_upload = async (e) => {
-    const file = e.target.files[0];
-    setAudio(file);
-  };
+  const navigator = useNavigate();
 
   useEffect(() => {
     const get_saved_note = async () => {
@@ -32,24 +28,23 @@ const AddNote = () => {
     try {
       let response;
       if (update === true) {
-        response = await update_note(note, audio);
+        response = await update_note(note);
       } else {
-        response = await post_note(note, audio);
+        response = await post_note(note);
       }
       console.log("response", response);
       setNote("");
-      setAudio(null);
       setUpdate(false);
+      navigator("/notes")
     } catch (error) {
       console.log("error", error);
       setNote("");
-      setAudio(null);
       setUpdate(false);
     }
   };
 
   return (
-    <div className="z-30">
+    <div className="z-30 mx-auto mt-20 w-full">
       <form
         class="max-w-sm mx-auto"
         onSubmit={handle_note_post}
@@ -62,30 +57,15 @@ const AddNote = () => {
           >
             Note
           </label>
-          <input
+          <textarea
             type="text"
             id="text"
             value={note}
             onChange={(e) => setNote(e.target.value)}
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Note"
+            rows="10"
+            placeholder="Write Your Note"
             required
-          />
-        </div>
-        <div class="mb-5">
-          <label
-            for="file"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Select Audio
-          </label>
-          <input
-            type="file"
-            id="file"
-            accept=".mpeg"
-            onChange={(e) => handle_audio_upload(e)}
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            multiple
           />
         </div>
 

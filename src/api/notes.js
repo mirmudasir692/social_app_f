@@ -7,15 +7,14 @@ const get_notes = async () => {
     const response = await AxiosInstance.get(url);
     return response.data;
   } catch (error) {
-    throw error;
+    return [];
   }
 };
 
-const post_note = async (note, audio) => {
+const post_note = async (note) => {
   const url = `${baseUrl}/note/`;
   const formData = new FormData();
   formData.append("text", note);
-  formData.append("audio", audio);
   try {
     const response = await AxiosInstance.post(url, formData, {
       headers: {
@@ -34,17 +33,17 @@ const get_my_note = async () => {
   return response.data;
 };
 
-const update_note = async (note, audio) => {
+const update_note = async (note) => {
   const url = `${baseUrl}/note/`;
   const formData = new FormData();
   formData.append("text", note);
-  formData.append("audio", audio);
   try {
     const response = await AxiosInstance.patch(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
+    console.log("response", response.data)
     return response.data;
   } catch (error) {
     console.log("error", error);

@@ -2,7 +2,7 @@ import Profile from "./profile";
 
 const MyAccount = () => {
   return (
-    <div>
+    <div className="mx-auto w-full">
       <Profile />
     </div>
   );

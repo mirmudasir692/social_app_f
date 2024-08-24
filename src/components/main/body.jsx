@@ -4,7 +4,7 @@ import Lander from "../story/storylander";
 
 const Body = () => {
   return (
-    <div>
+    <div className="mt-10">
       <Lander />
       <Posts />
       <PopUp />

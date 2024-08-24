@@ -4,12 +4,14 @@ import React, { memo, useEffect, useMemo, useState } from "react";
 import MomentUser from "../user/momentuser";
 import { AddToBasket, Leap } from "../../api/momentapi";
 import FruitContainer from "./fruitcontainer";
+import ShareBar from "../share/sharebar";
 
 const Moment = React.memo(({ moment }) => {
   const playerRef = React.useRef(null);
   const [is_leafed, setisLeafed] = useState(false);
   const [showFruit, setShowFruit] = useState(false);
   const [isBasked, setIsBasked] = useState(false);
+  const [showShare, setShowShare] = useState(true);
 
   console.log("jjjjjjjj liya", moment && moment);
 
@@ -114,10 +116,14 @@ const Moment = React.memo(({ moment }) => {
               <i class="fa-solid fa-basket-shopping"></i>
             </span>
           </button>
-          <span className="text-5xl p-2 pl-6 py-2">
+          <button
+            onClick={() => setShowShare((prevlaue) => !prevlaue)}
+            className="text-5xl p-2 pl-6 py-2"
+          >
             <i class="fa-solid fa-share"></i>
-          </span>
+          </button>
         </div>
+        {showShare && <ShareBar moment_={moment} />}
       </div>
     </div>
   );

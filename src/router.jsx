@@ -18,8 +18,6 @@ import MediaList from "./components/media/medialist";
 import Structure from "./components/media/structure";
 import Menu from "./components/media/Menu";
 import AddMoment from "./components/media/AddMoment";
-import ChatList from "./components/chatsystem/chatlist";
-import Messenger from "./components/chatsystem/messenger";
 import AddBlog from "./components/blogs/addblog";
 import Saved from "./components/saved/saved";
 import SavedMomentContainer from "./components/saved/moments";
@@ -27,6 +25,8 @@ import SavedBlogsContainer from "./components/saved/blogs";
 import Register from "./components/user/register";
 import ViewFriend from "./components/user/viewfriend";
 import SearchPage from "./components/search/searchpage";
+import NotePage from "./components/notes/note_page";
+import AddNote from "./components/notes/addnote";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,7 +39,6 @@ const router = createBrowserRouter(
       <Route path="addstory" element={<AddStory />} />
       <Route path="blogs" element={<Container />} />
       <Route path="add_moment" element={<AddMoment />} />
-      <Route path="chatbox" element={<Messenger />} />
       <Route path="add_blog" element={<AddBlog />} />
       <Route path="saved" element={<Saved />} />
       <Route path="saved_moments" element={<SavedMomentContainer />} />
@@ -47,6 +46,8 @@ const router = createBrowserRouter(
       <Route path="register" element={<Register />} />
       <Route path="view_friend/:user_id" element={<ViewFriend />} />
       <Route path="search/:username" element={<SearchPage />} />
+      <Route path="notes" element={<NotePage />} />
+      <Route path="add_note" element={<AddNote />} />
     </Route>
   )
 );
