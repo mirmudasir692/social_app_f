@@ -17,7 +17,7 @@ const Moments = () => {
   }, [page]);
 
   const IncreasePage = async () => {
-
+    
     setPage((preValue) => preValue + 1);
   };
 

@@ -31,10 +31,11 @@ const Note = ({ note }) => {
         </div>
 
         {edit ? (
-          <input
+          <textarea
             type="text"
             value={text}
-            className="border border-2 rounded-r px-4 py-2 w-full"
+            className="border-2 rounded-r px-4 py-2 w-full text-xs"
+            rows="5"
             onChange={(e) => setText(e.target.value)}
           />
         ) : (

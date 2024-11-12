@@ -166,7 +166,7 @@ const AddMoment = () => {
         </div>
       </div>
       {videoPreviewUrl && (
-        <video controls className="w- my-2">
+        <video controls className="w- my-2 w-96">
           <source src={videoPreviewUrl} type={video.type} />
           Your browser does not support the video tag.
         </video>

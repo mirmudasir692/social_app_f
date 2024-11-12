@@ -4,7 +4,6 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import { like_blog, save_blog } from "../../api/blog";
 import Comment from "./comment";
 import { Link } from "react-router-dom";
-import ShareBar from "../share/sharebar";
 
 const Blog = ({ blog }) => {
   const [is_liked, setIs_liked] = useState(false);
@@ -18,6 +17,7 @@ const Blog = ({ blog }) => {
     setLikes(blog && blog.likes);
     setIs_saved(blog && blog.is_saved);
   }, [blog]);
+
 
   const like_blog_handler = async () => {
     try {
@@ -58,12 +58,6 @@ const Blog = ({ blog }) => {
               <time datetime="2020-03-16" class="text-gray-500">
                 {blog && new Date(blog.timestamp).toLocaleDateString()}
               </time>
-              <a
-                href="#"
-                class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-              >
-                Marketing
-              </a>
             </div>
             <div class="group relative flex flex-col">
               <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
@@ -146,7 +140,6 @@ const Blog = ({ blog }) => {
         </div>
       </div>
       {showComment && <Comment blog_id={blog && blog.id} />}
-      {showShareBar && <ShareBar blog_id={blog && blog.id} blog_={true} />}
     </div>
   );
 };

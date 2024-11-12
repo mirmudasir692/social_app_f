@@ -12,7 +12,7 @@ const AddBlog = () => {
     try {
       const response = await post_blog(title, content);
       if (response.status === 200) {
-        navigator("/")
+        navigator("/");
       }
       console.log("response", response);
     } catch (error) {
@@ -23,7 +23,7 @@ const AddBlog = () => {
   return (
     <div>
       <form
-        class="max-w-md mx-auto border-2 bg-slate-300 px-2 py-5 mt-20 h-96 rounded-xl"
+        class="lg:w-96 md:w-52 border-2 bg-slate-300 py-5 mt-20 h-96 rounded-xl"
         onSubmit={upload_blog}
       >
         <div class="mb-5 w-f">
@@ -55,7 +55,7 @@ const AddBlog = () => {
             id="description"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 text-white dark:focus:border-blue-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 text-black dark:focus:border-blue-500"
             required
           ></textarea>
         </div>

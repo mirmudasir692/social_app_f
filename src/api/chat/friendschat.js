@@ -5,7 +5,7 @@ const GetChatList = async () => {
   const url = `${baseUrl}/chat/chatbox/`;
   try {
     const response = await AxiosInstance.get(url);
-    return response.status === 200 ? response.data : [];
+    return response.status === 200 && response.data;
   } catch (error) {
     console.log("error", error);
     throw error;

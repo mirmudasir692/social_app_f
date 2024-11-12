@@ -6,6 +6,7 @@ const GetMoments = async (page) => {
     const response = await AxiosInstance.get(
       `${baseUrl}/moments/watch/?page=${page}`
     );
+    console.log("moments res", response)
     return response.data;
   } catch (error) {
     console.log("error occured while getting moment", error);

@@ -14,7 +14,7 @@ const get_notes = async () => {
 const post_note = async (note) => {
   const url = `${baseUrl}/note/`;
   const formData = new FormData();
-  formData.append("text", note);
+  formData.append("text", note.slice(0, 200));
   try {
     const response = await AxiosInstance.post(url, formData, {
       headers: {

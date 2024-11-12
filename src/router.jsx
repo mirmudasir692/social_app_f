@@ -14,19 +14,16 @@ import Moments from "./components/moments/moments";
 import ViewStory from "./components/story/viewstory";
 import AddStory from "./components/story/addstory";
 import Container from "./components/blogs/container";
-import MediaList from "./components/media/medialist";
-import Structure from "./components/media/structure";
-import Menu from "./components/media/Menu";
 import AddMoment from "./components/media/AddMoment";
 import AddBlog from "./components/blogs/addblog";
 import Saved from "./components/saved/saved";
-import SavedMomentContainer from "./components/saved/moments";
 import SavedBlogsContainer from "./components/saved/blogs";
 import Register from "./components/user/register";
 import ViewFriend from "./components/user/viewfriend";
 import SearchPage from "./components/search/searchpage";
 import NotePage from "./components/notes/note_page";
 import AddNote from "./components/notes/addnote";
+import AddPost from "./components/posts/addpost";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,13 +38,13 @@ const router = createBrowserRouter(
       <Route path="add_moment" element={<AddMoment />} />
       <Route path="add_blog" element={<AddBlog />} />
       <Route path="saved" element={<Saved />} />
-      <Route path="saved_moments" element={<SavedMomentContainer />} />
       <Route path="saved_blogs" element={<SavedBlogsContainer />} />
       <Route path="register" element={<Register />} />
       <Route path="view_friend/:user_id" element={<ViewFriend />} />
       <Route path="search/:username" element={<SearchPage />} />
       <Route path="notes" element={<NotePage />} />
       <Route path="add_note" element={<AddNote />} />
+      <Route path="add_post" element={<AddPost />} />
     </Route>
   )
 );

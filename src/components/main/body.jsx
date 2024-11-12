@@ -4,8 +4,7 @@ import Lander from "../story/storylander";
 
 const Body = () => {
   return (
-    <div className="mt-10">
-      <Lander />
+    <div className="mt-10 flex mx-auto">
       <Posts />
       <PopUp />
     </div>

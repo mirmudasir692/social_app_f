@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { baseUrl } from "../../conf/conf";
 import ChatBox from "./messagechats";
-import { GetChatList } from "../../api/chat/friendschat";
+import { GetChatList, GetGroups } from "../../api/chat/friendschat";
 
 const Messenger = () => {
   const [friends, setFriends] = useState([]);
@@ -39,8 +39,9 @@ const Messenger = () => {
     const get_chat_list = async () => {
       try {
         const response = await GetChatList();
-        console.log("response", response[0].last_message.timestamp);
         setFriends(response);
+        const res = await GetGroups();
+        console.log("res", res);
       } catch (error) {
         console.log("error", error);
       }
@@ -78,24 +79,7 @@ const Messenger = () => {
                 </button>
               </div>
             </div>
-            <div class="mt-5">
-              <ul class="flex flex-row items-center justify-between">
-                <li>
-                  <a
-                    href="#"
-                    class="flex items-center pb-3 text-xs font-semibold relative text-indigo-800"
-                  >
-                    <span>All Conversations</span>
-                    <span class="absolute left-0 bottom-0 h-1 w-6 bg-indigo-800 rounded-full"></span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="mt-5">
-              <div class="text-xs text-gray-400 font-semibold uppercase">
-                Team
-              </div>
-            </div>
+            <div class="mt-5"></div>
             <div class="mt-2">
               <div class="flex flex-col -mx-4">
                 {friends.map((friend) => (
@@ -110,7 +94,7 @@ const Messenger = () => {
                     class="relative flex flex-row items-center p-4"
                   >
                     <div class="absolute text-xs text-gray-500 right-0 top-0 mr-4 mt-3">
-                      {formatTimeDifference(friend.last_message.timestamp)}
+                      {formatTimeDifference(friend.last_message && friend.last_message.timestamp)}
                     </div>
                     <img
                       src={`${baseUrl}${friend.receiver.profile_pic}`}
@@ -122,11 +106,11 @@ const Messenger = () => {
                       </div>
                       <div class="text-xs truncate w-40">
                         {
-                          friend.last_message.message &&
+                          friend.last_message && friend.last_message.message &&
                           friend.last_message.message.length > 30 // Check if message length is greater than 30
                             ? friend.last_message.message.substring(0, 20) +
                               "..." // If yes, truncate and add ellipsis
-                            : friend.last_message.message // If not, display the full message
+                            : friend.last_message && friend.last_message.message // If not, display the full message
                         }
                       </div>
                     </div>

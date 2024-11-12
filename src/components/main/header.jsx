@@ -37,19 +37,20 @@ const Header = () => {
   return (
     <>
       <nav class="flex items-center justify-between flex-wrap py-2 border-b shadow-lg fixed w-full bg-white z-50">
-        <div className="flex">
-          <Link to="/">
-            <img
-              src={`${fronturl}/src/assets/Gold Luxury Initial Logo.png`}
-              alt=""
-              srcset=""
-              className="p-3 text-white hover:text-gray-400 text-xl max-sm:text-sm w-14 h-14 rounded-full z-50"
-            />
-          </Link>
+        {is_authenticated && (
+          <div className="flex">
+            <Link to="/">
+              <img
+                src={`${fronturl}/src/assets/Gold Luxury Initial Logo.png`}
+                alt=""
+                srcset=""
+                className="p-3 text-white hover:text-gray-400 text-xl max-sm:text-sm w-14 h-14 rounded-full z-50"
+              />
+            </Link>
 
-          <Search />
-        </div>
-
+            <Search />
+          </div>
+        )}
         {is_authenticated && (
           <div className="flex align-middle justify-evenly w-4/12 max-sm:w-1/2 mr-48">
             <Link to="/">
@@ -84,7 +85,7 @@ const Header = () => {
         <div className="flex gap-3">
           <div className="z-10 mr-2">
             {is_authenticated ? (
-              <button
+              <div
                 class=""
                 onClick={() => setShowUserOps((preValue) => !preValue)}
               >
@@ -93,7 +94,7 @@ const Header = () => {
                   src={user_profile && user_profile}
                   alt="Rounded avatar"
                 />
-              </button>
+              </div>
             ) : (
               <Link
                 to="/login"
@@ -103,23 +104,12 @@ const Header = () => {
               </Link>
             )}
 
-            {showuserps && (
               <div
                 class="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 absolute right-1 w-48"
                 id="user-dropdown"
               >
-                <ul class="py-2" aria-labelledby="user-menu-button">
-                  <li>
-                    <button
-                      onClick={() => handle_sign_out()}
-                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white w-full"
-                    >
-                      Sign out
-                    </button>
-                  </li>
-                </ul>
+              
               </div>
-            )}
           </div>
         </div>
       </nav>

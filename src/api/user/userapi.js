@@ -45,6 +45,7 @@ const register_user = async ({
 }) => {
   const url = `${baseUrl}/accounts/register/`;
   const formData = new FormData();
+  console.log("dob", dob);
 
   // Append other form fields
   formData.append("username", username);
@@ -58,8 +59,10 @@ const register_user = async ({
   try {
     const response = await axios.post(url, formData);
     store.dispatch(login_user(response.data));
+    console.log("response", response);
     return response.status;
   } catch (error) {
+    console.log("error", error);
     throw error;
   }
 };
@@ -90,9 +93,51 @@ const search_users = async ({ username }) => {
   try {
     const response = await AxiosInstance.get(url);
     console.log("response", response.data);
-    return response.data
+    return response.data;
   } catch (err) {
     console.log("err", err);
+    return [];
+  }
+};
+const update_user = async ({ username, name, profile_pic, password, bio }) => {
+  const formData = new FormData();
+  formData.append("username", username);
+  formData.append("name", name);
+
+  if (profile_pic instanceof File || profile_pic instanceof Blob) {
+    formData.append("picture", profile_pic);
+  } else {
+    console.error("Profile picture must be a file object.");
+    return;
+  }
+
+  formData.append("password", password);
+  formData.append("bio", bio);
+
+  const url = `${baseUrl}/accounts/myaccount/`;
+
+  try {
+    const response = await AxiosInstance.patch(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    console.log("response", response);
+    return response;
+  } catch (error) {
+    console.error("error", error);
+    throw error;
+  }
+};
+
+const get_all_follows = async (followers_) => {
+  const url = `${baseUrl}/accounts/my_followers/?followers=${followers_}`;
+  try {
+    const response = await AxiosInstance.get(url);
+    console.log("response", response);
+    return response.data;
+  } catch (err) {
+    console.log("error", err);
     return [];
   }
 };
@@ -103,4 +148,6 @@ export {
   register_user,
   get_friend_profile,
   search_users,
+  get_all_follows,
+  update_user,
 };

@@ -7,6 +7,8 @@ import { user_id } from "../../features/auth/authSlice";
 
 const ChatBox = ({ group_id, receiver }) => {
   const [chats, setChats] = useState([]);
+  const [image, setImage] = useState(null);
+
   const [message, setMessage] = useState("");
   const chatEndRef = useRef(null);
   console.log(`socket url`, socketUrl);
@@ -20,6 +22,14 @@ const ChatBox = ({ group_id, receiver }) => {
   chats.map((chat) => {
     console.log("chat", chat.sender.id);
   });
+  const handleImageChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile && isImage(selectedFile)) {
+      setImage(URL.createObjectURL(selectedFile));
+    } else {
+      alert("Please select a valid image file.");
+    }
+  };
 
   useEffect(() => {
     const get_user_chat = async () => {
@@ -163,7 +173,14 @@ const ChatBox = ({ group_id, receiver }) => {
             />
           </div>
           <div class="flex flex-row">
-            <button class="flex items-center justify-center h-10 w-8 text-gray-400 ml-1 mr-2">
+            <input
+              type="file"
+              accept="image/*"
+              class="flex items-center justify-center h-0 w-0 ml-1 mr-2"
+              id="ImageFile"
+              onChange={handleImageChange}
+            />
+            <label htmlFor="ImageFile">
               <svg
                 class="w-5 h-5"
                 fill="none"
@@ -178,7 +195,7 @@ const ChatBox = ({ group_id, receiver }) => {
                   d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                 ></path>
               </svg>
-            </button>
+            </label>
           </div>
         </div>
         <div class="ml-6">

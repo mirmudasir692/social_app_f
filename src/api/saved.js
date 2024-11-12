@@ -16,18 +16,6 @@ const get_saved_blogs = async () => {
   }
 };
 
-const get_saved_moments = async () => {
-  const url = `${baseUrl}/feature/basket/`;
-  try {
-    const response = await AxiosInstance.get(url);
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      return [];
-    }
-  } catch (error) {
-    throw error;
-  }
-};
 
-export { get_saved_blogs, get_saved_moments };
+
+export { get_saved_blogs };

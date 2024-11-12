@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { user_id } from "../../features/auth/authSlice";
 import { baseUrl } from "../../conf/conf";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const Message = ({ message }) => {
   console.log("message", message);
@@ -9,6 +9,22 @@ const Message = ({ message }) => {
   console.log("sender_id", typeof sender_id);
   console.log("");
   const [operations, setOperations] = useState(false);
+  const isImage = (file) => {
+    if (file) {
+      const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp", "webp"];
+      const extension = file.split(".").pop().toLowerCase();
+      return imageExtensions.includes(extension);
+    }
+  };
+  const show_date_time = (timestamp) => {
+    const date = new Date(timestamp);
+    const day = date.toLocaleDateString("en-US", { weekday: "short" });
+    const time = date.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return `${day}, ${time}`;
+  };
 
   return (
     <div
@@ -26,16 +42,23 @@ const Message = ({ message }) => {
       <div class="flex flex-col w-full max-w-[320px] leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl border-2 mt-2 dark:bg-gray-700">
         <div class="flex items-center space-x-2 rtl:space-x-reverse">
           <span
-            class={`text-xs font-normal text-gray-500 dark:text-gray-400 ${
+            class={`text-xs font-extralight ml-auto text-gray-700 dark:text-gray-400 ${
               sender_id === message.sender.id ? "" : ""
             }`}
           >
-            11:46
+            {show_date_time(message.timestamp)}
           </span>
         </div>
         <p class="text-xs font-normal py-2.5 text-gray-900 dark:text-white">
           {message.message}
         </p>
+        {isImage(message.file) && (
+          <img
+            src={`${baseUrl}${message.file}`}
+            alt="Message content"
+            style={{ maxWidth: "100%", height: "auto" }}
+          />
+        )}{" "}
         {sender_id === message.sender.id && (
           <span class="text-xs font-normal text-gray-500 dark:text-gray-400">
             Delivered
